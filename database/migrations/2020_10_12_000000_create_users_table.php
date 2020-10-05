@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             //primaria
-            $table->id();
+            $table->increments('id');
 
             //campos
             $table->string('name');
@@ -28,9 +28,6 @@ class CreateUsersTable extends Migration
             //llaves foraneas
             $table->unsignedInteger('rol_id');
             $table->foreign('rol_id')->references('id')->on('rols');
-
-
-
         });
     }
 

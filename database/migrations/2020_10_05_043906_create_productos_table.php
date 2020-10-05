@@ -14,8 +14,25 @@ class CreateProductosTable extends Migration
     public function up()
     {
         Schema::create('productos', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->decimal('precio', 8, 2);
             $table->timestamps();
+            $table->softDeletes();
+            $table->string('imagenpath');
+
+
+            //foraneas
+            $table->integer('color_id')->unsigned();
+            $table->integer('talla_id')->unsigned();
+
+
+            $table->foreign('color_id')->references('id')->on('colors');
+            $table->foreign('talla_id')->references('id')->on('tallas');
+
+
+            
         });
     }
 
@@ -26,6 +43,11 @@ class CreateProductosTable extends Migration
      */
     public function down()
     {
+
+        Schema::table('productos', function (Blueprint $table) {
+            $table->dropForeign('productos_color_id_foreign');
+            $table->dropForeign('productos_talla_id_foreign');
+        });
         Schema::dropIfExists('productos');
     }
 }
