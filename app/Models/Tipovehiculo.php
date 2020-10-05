@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Tipovehiculo extends Model
 {
     use HasFactory;
+
+
+    public function vehiculo()
+    {
+        return $this->belongsTo('App\Models\Vehiculo');
+    }
+
+
 }

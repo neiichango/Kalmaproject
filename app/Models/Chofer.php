@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Chofer extends Model
 {
     use HasFactory;
+
+    public function vehiculo()
+    {
+        return $this->hasMany('App\Models\Vehiculo');
+    }
 }

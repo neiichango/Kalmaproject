@@ -28,6 +28,7 @@ class CreateProvinciasTable extends Migration
      */
     public function down()
     {
+        
         Schema::dropIfExists('provincias');
     }
 }

@@ -14,14 +14,14 @@ class CreateCantonsTable extends Migration
     public function up()
     {
         Schema::create('cantons', function (Blueprint $table) {
-            $table->increments('id');
+            //$table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('numeroxprovincia');
+            $table->unsignedInteger('id');
             $table->unsignedInteger('provincia_id');
             $table->timestamps();
 
 
-            $table->primary(['numeroxprovincia', 'provincia_id']);
+            $table->primary(['id', 'provincia_id']);
             $table->foreign('provincia_id')->references('id')->on('provincias');
 
 
@@ -35,6 +35,10 @@ class CreateCantonsTable extends Migration
      */
     public function down()
     {
+
+        Schema::table('cantons', function (Blueprint $table) {
+            $table->dropForeign('cantons_provincia_id_foreign');
+        });
         Schema::dropIfExists('cantons');
     }
 }
