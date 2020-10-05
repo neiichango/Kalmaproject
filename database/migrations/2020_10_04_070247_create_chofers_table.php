@@ -14,8 +14,20 @@ class CreateChofersTable extends Migration
     public function up()
     {
         Schema::create('chofers', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('cedula')->unique();
+            $table->string('nombre');
+            $table->string('apellido1');
+            $table->string('apellido2');
+            $table->string('telefono');
+            $table->softDeletes();
             $table->timestamps();
+
+            //foranea
+
+            $table->integer('vehiculo_id')->unsigned()->nullable();
+            $table->foreign('vehiculo_id')->references('id')->on('vehiculos');
+
         });
     }
 
