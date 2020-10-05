@@ -38,6 +38,10 @@ class CreateChofersTable extends Migration
      */
     public function down()
     {
+
+        Schema::table('chofers', function (Blueprint $table) {
+            $table->dropForeign('chofers_vehiculo_id_foreign');
+        });
         Schema::dropIfExists('chofers');
     }
 }

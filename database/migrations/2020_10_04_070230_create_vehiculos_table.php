@@ -20,15 +20,9 @@ class CreateVehiculosTable extends Migration
             $table->string('modelo');
             $table->year('anno');
             $table->timestamps();
-
-
             //llaves foraneas
             $table->integer('tipovehiculo_id')->unsigned();
             $table->foreign('tipovehiculo_id')->references('id')->on('tipovehiculos');
-
-
-
-
         });
     }
 
@@ -39,6 +33,12 @@ class CreateVehiculosTable extends Migration
      */
     public function down()
     {
+
+        Schema::table('vehiculos', function (Blueprint $table) {
+            $table->dropForeign('vehiculos_tipovehiculo_id_foreign');
+        });
+
         Schema::dropIfExists('vehiculos');
+
     }
 }
