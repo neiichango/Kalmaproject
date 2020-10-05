@@ -37,7 +37,6 @@ class CreateVehiculosTable extends Migration
         Schema::table('vehiculos', function (Blueprint $table) {
             $table->dropForeign('vehiculos_tipovehiculo_id_foreign');
         });
-
         Schema::dropIfExists('vehiculos');
 
     }
