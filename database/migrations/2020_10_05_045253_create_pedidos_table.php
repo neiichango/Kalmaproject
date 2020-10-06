@@ -15,28 +15,17 @@ class CreatePedidosTable extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->increments('id');
-
             $table->boolean('express')->default(false);
             $table->date('fechaFactura')->nullable();
-            $table->text('sennas');
+            $table->text('direccion');
             $table->decimal('gastoenvio', 8, 2);
             $table->decimal('subtotal', 8, 2);
             $table->decimal('gastoimpuesto', 8, 2);
             $table->decimal('total', 8, 2);
-
-
-
             $table->integer('cliente_id')->unsigned();
-            $table->integer('provincia_id')->unsigned();
-            $table->integer('canton_id')->unsigned();
-            $table->integer('distrito_id')->unsigned();
             $table->integer('chofer_id')->unsigned()->nullable();
             $table->integer('estadopedido_id')->unsigned();
-
             $table->foreign('cliente_id')->references('id')->on('clientes');
-            $table->foreign('provincia_id')->references('provincia_id')->on('distritos');
-            $table->foreign('canton_id')->references('canton_id')->on('distritos');
-            $table->foreign('distrito_id')->references('id')->on('distritos');
             $table->foreign('chofer_id')->references('id')->on('chofers');
             $table->foreign('estadopedido_id')->references('id')->on('estadopedidos');
         });
@@ -51,9 +40,6 @@ class CreatePedidosTable extends Migration
     {
         Schema::table('pedidos', function (Blueprint $table) {
             $table->dropForeign('pedidos_cliente_id_foreign');
-            $table->dropForeign('pedidos_provincia_id_foreign');
-            $table->dropForeign('pedidos_canton_id_foreign');
-            $table->dropForeign('pedidos_distrito_id_foreign');
             $table->dropForeign('pedidos_chofer_id_foreign');
             $table->dropForeign('pedidos_estadopedido_id_foreign');
         });
