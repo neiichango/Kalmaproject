@@ -20,8 +20,6 @@ class CreateDetallepedidosTable extends Migration
             $table->unsignedTinyInteger('cantidad')->default(0); //0 - 255
             $table->decimal('subtotal', 8, 2)->default(0);
             $table->timestamps();
-
-
             $table->foreign('pedido_id')->references('id')->on('pedidos');
             $table->foreign('producto_id')->references('id')->on('productos');
         });
