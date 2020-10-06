@@ -14,7 +14,6 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            //primaria
             $table->increments('id');
 
             //campos
@@ -38,7 +37,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign('users_rol_id_foreign');
         });

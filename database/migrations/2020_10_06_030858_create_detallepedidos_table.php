@@ -33,6 +33,7 @@ class CreateDetallepedidosTable extends Migration
     public function down()
     {
 
+
         Schema::table('detallepedidos', function (Blueprint $table) {
             $table->dropForeign('detallepedidos_pedido_id_foreign');
             $table->dropForeign('detallepedidos_producto_id_foreign');
