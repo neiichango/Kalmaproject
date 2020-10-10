@@ -11,13 +11,13 @@ class Producto extends Model
 
     public function talla()
     {
-        return $this->belongsTo('App\Models\Talla');
+        return $this->belongsToMany('App\Models\Talla');
     }
 
 
     public function categoria()
     {
-        return $this->belongsToMany('App\Models\Categoria');
+        return $this->hasMany('App\Models\Categoria');
     }
 
     public function color()

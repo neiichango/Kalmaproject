@@ -12,6 +12,6 @@ class Categoria extends Model
 
     public function producto()
     {
-        return $this->belongsToMany('App\Models\Producto');
+        return $this->belongsTo('App\Models\Producto');
     }
 }

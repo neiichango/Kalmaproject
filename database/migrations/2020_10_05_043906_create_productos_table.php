@@ -25,14 +25,15 @@ class CreateProductosTable extends Migration
 
             //foraneas
             $table->integer('color_id')->unsigned();
-            $table->integer('talla_id')->unsigned();
-
+           // $table->integer('talla_id')->unsigned();
+            $table->unsignedInteger('categoria_id');
 
             $table->foreign('color_id')->references('id')->on('colors');
-            $table->foreign('talla_id')->references('id')->on('tallas');
+           // $table->foreign('talla_id')->references('id')->on('tallas');
+            $table->foreign('categoria_id')->references('id')->on('categorias');
 
 
-            
+
         });
     }
 
@@ -46,7 +47,7 @@ class CreateProductosTable extends Migration
 
         Schema::table('productos', function (Blueprint $table) {
             $table->dropForeign('productos_color_id_foreign');
-            $table->dropForeign('productos_talla_id_foreign');
+            $table->dropForeign('productos_categoria_id_foreign');
         });
         Schema::dropIfExists('productos');
     }
