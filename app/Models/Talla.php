@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Talla extends Model
 {
     use HasFactory;
+
+
+    public function producto()
+    {
+        return $this->belongsTo('App\Models\Producto');
+    }
 }
