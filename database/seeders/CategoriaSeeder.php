@@ -14,40 +14,40 @@ class CategoriaSeeder extends Seeder
     public function run()
     {
         //1
-        $genero = new \App\Models\Categoria();
-        $genero->name = 'Pants';
-       // $genero->description = '';
-        $genero->save();
+        $categoria = new \App\Models\Categoria();
+        $categoria->name = 'Pants';
+        // $genero->description = '';
+        $categoria->save();
         //2
-        $genero = new \App\Models\Categoria();
-        $genero->name = 'Hoodies & Sweaters';
-       // $genero->description = '';
-        $genero->save();
+        $categoria = new \App\Models\Categoria();
+        $categoria->name = 'Hoodies & Sweaters';
+        // $genero->description = '';
+        $categoria->save();
         //3
-        $genero = new \App\Models\Categoria();
-        $genero->name = 'Skirts';
-      //  $genero->description = '';
-        $genero->save();
+        $categoria = new \App\Models\Categoria();
+        $categoria->name = 'Skirts';
+        //  $genero->description = '';
+        $categoria->save();
         //4
-        $genero = new \App\Models\Categoria();
-        $genero->name = 'Dresses';
+        $categoria = new \App\Models\Categoria();
+        $categoria->name = 'Dresses';
         //$genero->description = '';
-        $genero->save();
+        $categoria->save();
         //5
-        $genero = new \App\Models\Categoria();
-        $genero->name = 'Tops';
-       // $genero->description = '';
-        $genero->save();
+        $categoria = new \App\Models\Categoria();
+        $categoria->name = 'Tops';
+        // $genero->description = '';
+        $categoria->save();
         //6
-        $genero = new \App\Models\Categoria();
-        $genero->name = 'Accesories';
+        $categoria = new \App\Models\Categoria();
+        $categoria->name = 'Accesories';
         //$genero->description = '';
-        $genero->save();
+        $categoria->save();
         //7
-        $genero = new \App\Models\Categoria();
-        $genero->name = 'Leggings';
+        $categoria = new \App\Models\Categoria();
+        $categoria->name = 'Leggings';
         //$genero->description = '';
-        $genero->save();
+        $categoria->save();
 
 
 

@@ -17,7 +17,7 @@ class CreatePedidosTable extends Migration
             $table->increments('id');
             $table->boolean('express')->default(false);
             $table->date('fechaFactura')->nullable();
-            $table->text('direccion');
+            $table->text('direccion')->nullable();
             $table->decimal('gastoenvio', 8, 2);
             $table->decimal('subtotal', 8, 2);
             $table->decimal('gastoimpuesto', 8, 2);

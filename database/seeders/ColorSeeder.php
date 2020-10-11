@@ -14,5 +14,62 @@ class ColorSeeder extends Seeder
     public function run()
     {
         //
+        //1
+        $color = new \App\Models\Color();
+        $color->name = 'Rojo';
+        $color->code = '#cf7878';
+        $color->save();
+
+        //2
+        $color = new \App\Models\Color();
+        $color->name = 'Rosa';
+        $color->code = '#cf78b9';
+        $color->save();
+
+        //3
+        $color = new \App\Models\Color();
+        $color->name = 'Morado';
+        $color->code = '#b578cf';
+        $color->save();
+        //4
+        $color = new \App\Models\Color();
+        $color->name = 'Azul';
+        $color->code = '#5f82c9';
+        $color->save();
+        //5
+        $color = new \App\Models\Color();
+        $color->name = 'Verde';
+        $color->code = '5fc9ad';
+        $color->save();
+        //1
+        $color = new \App\Models\Color();
+        $color->name = 'Amarillo';
+        $color->code = '#dbdb69';
+        $color->save();
+        //1
+        $color = new \App\Models\Color();
+        $color->name = 'Naranja';
+        $color->code = '#db9e69';
+        $color->save();
+        //1
+        $color = new \App\Models\Color();
+        $color->name = 'Blanco';
+        $color->code = '#ffffff';
+        $color->save();
+        //1
+        $color = new \App\Models\Color();
+        $color->name = 'Negro';
+        $color->code = '#000000';
+        $color->save();
+
+        $color = new \App\Models\Color();
+        $color->name = 'Cafe';
+        $color->code = '#452b0a';
+        $color->save();
+
+        $color = new \App\Models\Color();
+        $color->name = 'Gris';
+        $color->code = '#4a4948';
+        $color->save();
     }
 }
