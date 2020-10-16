@@ -11,12 +11,14 @@ class Vehiculo extends Model
 
     public function chofer()
     {
-        return $this->belongsTo('App\Models\Chofer');
+        return $this->hasMany('App\Models\Chofer');
+        //relacion verificada
     }
 
     public function tipovehiculo()
     {
-        return $this->hasMany('App\Models\Tipovehiculo');
+        return $this->belongsTo('App\Models\Tipovehiculo');
+        //relacion verificada
     }
 
 

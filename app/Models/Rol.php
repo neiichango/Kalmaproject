@@ -13,5 +13,6 @@ class Rol extends Model
     public function user()
     {
         return $this->hasMany('App\Models\User');
+        //relacion verificada
     }
 }

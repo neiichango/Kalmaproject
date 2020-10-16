@@ -11,7 +11,8 @@ class Cliente extends Model
 
     public function pedido()
     {
-        return $this->belongsTo('App\Models\Pedido');
+        return $this->hasMany('App\Models\Pedido');
+        //relacion verificada
     }
 
 

@@ -11,22 +11,26 @@ class Pedido extends Model
 
     public function estadopedido()
     {
-        return $this->hasMany('App\Models\Estadopedido');
+        return $this->belongsTo('App\Models\Estadopedido');
+        //verificada
     }
 
 
     public function detallepedido()
     {
-        return $this->belongsTo('App\Models\Detallepedido');
+        return $this->hasMany('App\Models\Detallepedido');
+        //relacion verificada
     }
 
     public function chofer()
     {
-        return $this->hasMany('App\Models\Chofer');
+        return $this->belongsTo('App\Models\Chofer');
+        //relacion verificada
     }
 
     public function cliente()
     {
-        return $this->hasMany('App\Models\Cliente');
+        return $this->belongsTo('App\Models\Cliente');
+        //relacion verificada
     }
 }

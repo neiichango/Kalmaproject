@@ -12,21 +12,26 @@ class Producto extends Model
     public function talla()
     {
         return $this->belongsToMany('App\Models\Talla');
+        //relacion verificada
     }
 
 
     public function categoria()
     {
-        return $this->hasMany('App\Models\Categoria');
+        return $this->belongsTo('App\Models\Categoria');
+        //relacion verificada
     }
 
     public function color()
     {
-        return $this->hasMany('App\Models\Color');
+        return $this->belongsTo('App\Models\Color');
+        //relacion verificada
     }
 
     public function detallepedido()
     {
-        return $this->belongsTo('App\Models\DetallePedido');
+        return $this->hasMany('App\Models\DetallePedido');
+        //relacion verificada
+        
     }
 }

@@ -15,6 +15,15 @@ class VehiculoController extends Controller
     public function index()
     {
         //
+
+        try {
+            $vehiculos = Vehiculo::all();
+            $response = $vehiculos;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

@@ -12,7 +12,8 @@ class Tipovehiculo extends Model
 
     public function vehiculo()
     {
-        return $this->belongsTo('App\Models\Vehiculo');
+        return $this->hasMany('App\Models\Vehiculo');
+        //relacion verificada
     }
 
 

@@ -13,5 +13,6 @@ class Talla extends Model
     public function producto()
     {
         return $this->belongsToMany('App\Models\Producto');
+        //relacion verificada
     }
 }

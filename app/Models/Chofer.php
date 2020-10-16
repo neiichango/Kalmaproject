@@ -11,11 +11,13 @@ class Chofer extends Model
 
     public function vehiculo()
     {
-        return $this->hasMany('App\Models\Vehiculo');
+        return $this->belongsTo('App\Models\Vehiculo');
+        //relacion verificada
     }
     public function pedido()
     {
-        return $this->belongsTo('App\Models\Pedido');
+        return $this->hasMany('App\Models\Pedido');
+        //relacion verificada
     }
 
 

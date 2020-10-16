@@ -11,12 +11,15 @@ class Detallepedido extends Model
 
     public function pedido()
     {
-        return $this->hasMany('App\Models\pedido');
+        return $this->belongsTo('App\Models\pedido');
+        //relacion verificada
     }
 
 
     public function producto()
     {
-        return $this->hasMany('App\Models\Producto');
+        return $this->belongsTo('App\Models\Producto');
+        //relacion verificada
+        
     }
 }
