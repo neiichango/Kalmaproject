@@ -25,7 +25,6 @@ Route::group(['prefix' => 'v1'], function () {
         // http://127.0.0.1:8000/api/v1/kalma/
 
 
-
         //RUTAS AUTH
         Route::group([
             'prefix' => 'auth'
@@ -48,10 +47,13 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
 
+
+        
         //RUTAS vehiculo
         Route::group(['prefix' => 'car'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/car/all
-            Route::get('all', [VehiculoController::class, 'index'])->middleware(['auth:api','scopes:Administrador']);
+            Route::get('all', [VehiculoController::class, 'index']);
+            //->middleware(['auth:api','scopes:Administrador']);
         });
     });
 });

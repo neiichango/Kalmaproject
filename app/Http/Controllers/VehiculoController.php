@@ -17,7 +17,7 @@ class VehiculoController extends Controller
         //
 
         try {
-            $vehiculos = Vehiculo::all();
+            $vehiculos = Vehiculo::orderBy("marca","asc")->with(["tipovehiculo"])->get();;
             $response = $vehiculos;
 
             return response()->json($response, 200);

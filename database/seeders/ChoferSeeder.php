@@ -1,0 +1,26 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class ChoferSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        //1
+        $chofer = new \App\Models\Chofer();
+        $chofer->cedula = '101110111';
+        $chofer->nombre = 'Mario';
+        $chofer->apellido1 = 'Mario';
+        $chofer->apellido2 = 'Mario';
+        $chofer->telefono = 'Mario';
+        $chofer->vehiculo_id = 2;
+        $chofer->save();
+    }
+}

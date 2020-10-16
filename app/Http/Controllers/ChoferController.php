@@ -16,7 +16,7 @@ class ChoferController extends Controller
     {
         //
         try {
-            $choferes = Chofer::all();
+            $choferes = Chofer::orderBy("nombre","asc")->with(["vehiculo.tipovehiculo"])->get();
             $response = $choferes;
 
             return response()->json($response, 200);
