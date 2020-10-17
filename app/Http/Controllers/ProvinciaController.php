@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categoria;
+use App\Models\Provincia;
 use Illuminate\Http\Request;
 
-class CategoriaController extends Controller
+class ProvinciaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,15 +14,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //0
-        try {
-            $categorias = Categoria::orderBy('name', 'asc')->get();
-            $response = $categorias;
-
-            return response()->json($response, 200);
-        } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 422);
-        }
+        //
     }
 
     /**
@@ -49,28 +41,21 @@ class CategoriaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Categoria  $categoria
+     * @param  \App\Models\Provincia  $provincia
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Provincia $provincia)
     {
-        try {
-            //Obtener una categoria
-            $categoria = Categoria::where('id', $id)->first();
-            $response = $categoria;
-            return response()->json($response, 200);
-        } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 422);
-        }
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Categoria  $categoria
+     * @param  \App\Models\Provincia  $provincia
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categoria)
+    public function edit(Provincia $provincia)
     {
         //
     }
@@ -79,10 +64,10 @@ class CategoriaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Categoria  $categoria
+     * @param  \App\Models\Provincia  $provincia
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, Provincia $provincia)
     {
         //
     }
@@ -90,10 +75,10 @@ class CategoriaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Categoria  $categoria
+     * @param  \App\Models\Provincia  $provincia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy(Provincia $provincia)
     {
         //
     }

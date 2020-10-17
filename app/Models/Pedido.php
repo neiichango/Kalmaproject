@@ -15,6 +15,12 @@ class Pedido extends Model
         //verificada
     }
 
+    public function provincia()
+    {
+        return $this->belongsTo('App\Models\Provincia');
+        //verificada
+    }
+
 
     public function detallepedido()
     {

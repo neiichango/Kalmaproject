@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ChoferController;
 use App\Http\Controllers\VehiculoController;
 
@@ -49,10 +50,17 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('all', [ChoferController::class, 'all']);
             // http://127.0.0.1:8000/api/v1/kalma/staff/{id}
             Route::get('/{id}', [ChoferController::class, 'show']);
-
         });
 
 
+        //RUTAS categoria
+        //http://127.0.0.1:8000/api/v1/kalma/categoria/
+        Route::group(['prefix' => 'categoria'], function ($router) {
+            // http://127.0.0.1:8000/api/v1/kalma/categoria/index
+            Route::get('index', [CategoriaController::class, 'index']);
+            // http://127.0.0.1:8000/api/v1/kalma/categoria/{id}
+            Route::get('/{id}', [CategoriaController::class, 'show']);
+        });
 
 
         //RUTAS vehiculo
@@ -60,6 +68,8 @@ Route::group(['prefix' => 'v1'], function () {
             // http://127.0.0.1:8000/api/v1/kalma/car/all
             Route::get('all', [VehiculoController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
+
+
         });
     });
 });
