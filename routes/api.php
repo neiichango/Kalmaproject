@@ -41,14 +41,20 @@ Route::group(['prefix' => 'v1'], function () {
 
 
         //RUTAS CHOFER
+        //http://127.0.0.1:8000/api/v1/kalma/staff/
         Route::group(['prefix' => 'staff'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/staff/all
-            Route::get('all', [ChoferController::class, 'index']);
+            Route::get('index', [ChoferController::class, 'index']);
+            // http://127.0.0.1:8000/api/v1/kalma/staff/allstaff
+            Route::get('all', [ChoferController::class, 'all']);
+            // http://127.0.0.1:8000/api/v1/kalma/staff/{id}
+            Route::get('/{id}', [ChoferController::class, 'show']);
+
         });
 
 
 
-        
+
         //RUTAS vehiculo
         Route::group(['prefix' => 'car'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/car/all

@@ -16,7 +16,7 @@ class ChoferController extends Controller
     {
         //
         try {
-            $choferes = Chofer::orderBy("nombre","asc")->with(["vehiculo.tipovehiculo"])->get();
+            $choferes = Chofer::wherenull("deleted_at")->with(["vehiculo.tipovehiculo"])->get();
             $response = $choferes;
 
             return response()->json($response, 200);
@@ -24,6 +24,20 @@ class ChoferController extends Controller
             return response()->json($e->getMessage(), 422);
         }
     }
+
+    public function all()
+    {
+
+        try {
+            $choferes = Chofer::orderBy("nombre", "asc")->with(["vehiculo.tipovehiculo"])->get();
+            $response = $choferes;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,9 +66,17 @@ class ChoferController extends Controller
      * @param  \App\Models\Chofer  $chofer
      * @return \Illuminate\Http\Response
      */
-    public function show(Chofer $chofer)
+    public function show($id)
     {
         //
+        try {
+            //Obtener un videojuego
+            $chofer = Chofer::where('id', $id)->with(["vehiculo.tipovehiculo"])->first();
+            $response = $chofer;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
