@@ -27,5 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EstadopedidoSeeder::class);
         $this->call(ChoferSeeder::class);
         $this->call(ProvinciaSeeder::class);
+        $this->call(ClienteSeeder::class);
+        $this->call(ProductoSeeder::class);
     }
 }

@@ -15,6 +15,15 @@ class RolController extends Controller
     public function index()
     {
         //
+        //obtener los productos activos
+        try {
+            $rol = Rol::orderBy('name', 'asc')->with(['user'])->get();
+            $response = $rol;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

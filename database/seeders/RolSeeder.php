@@ -18,12 +18,12 @@ class RolSeeder extends Seeder
         $rol->name = 'Administrador';
         $rol->description = 'administrador';
         $rol->save();
-//2
+        //2
         $rol = new \App\Models\Rol();
         $rol->name = 'Vendedor';
         $rol->description = 'vendedor';
         $rol->save();
-//3
+        //3
         $rol = new \App\Models\Rol();
         $rol->name = 'Entrega';
         $rol->description = 'Personal Entrega';
@@ -34,6 +34,5 @@ class RolSeeder extends Seeder
         $rol->name = 'Bodega';
         $rol->description = 'Personal de bodega y empaque';
         $rol->save();
-
     }
 }

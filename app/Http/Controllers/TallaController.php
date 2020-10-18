@@ -14,7 +14,14 @@ class TallaController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $talla = Talla::orderBy('id', 'asc')->with(["producto"])->get();
+            $response = $talla;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

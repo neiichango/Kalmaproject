@@ -15,6 +15,14 @@ class EstadopedidoController extends Controller
     public function index()
     {
         //
+        try {
+            $estadopedido = Estadopedido::orderBy('name', 'asc')->get();
+            $response = $estadopedido;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

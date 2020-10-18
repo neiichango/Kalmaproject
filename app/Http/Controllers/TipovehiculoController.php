@@ -14,7 +14,14 @@ class TipovehiculoController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $tipovehiculo = Tipovehiculo::orderBy('name', 'asc')->get();
+            $response = $tipovehiculo;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

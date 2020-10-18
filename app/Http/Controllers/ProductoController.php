@@ -14,8 +14,33 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+        //obtener los productos activos
+        try {
+            $producto = Producto::wherenull("deleted_at")->with(['color', 'categoria', 'talla', 'detallepedido.pedido'])->get();
+            $response = $producto;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
+
+    public function all()
+    {
+
+        try {
+            $producto = Producto::orderBy("name", "asc")->with(['color', 'categoria', 'talla', 'detallepedido.pedido'])->get();
+            $response = $producto;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -44,9 +69,17 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function show(Producto $producto)
+    public function show($id)
     {
         //
+        try {
+            //Obtener un producto
+            $producto = Producto::where('id', $id)->with(['color', 'categoria', 'talla', 'detallepedido.pedido'])->first();
+            $response = $producto;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

@@ -20,7 +20,7 @@ class CreateProductosTable extends Migration
             $table->decimal('precio', 8, 2);
             $table->timestamps();
             $table->softDeletes();
-            $table->string('imagenpath');
+            $table->string('imagenpath')->nullable();
 
 
             //foraneas

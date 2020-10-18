@@ -15,8 +15,17 @@ class ColorController extends Controller
     public function index()
     {
         //
-    }
 
+        try {
+            $color = Color::orderBy('name', 'asc')->get();
+            $response = $color;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+ 
     /**
      * Show the form for creating a new resource.
      *
