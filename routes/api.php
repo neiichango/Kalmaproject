@@ -53,7 +53,7 @@ Route::group(['prefix' => 'v1'], function () {
         //http://127.0.0.1:8000/api/v1/kalma/staff/
         Route::group(['prefix' => 'staff'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/staff/all
-            Route::get('index', [ChoferController::class, 'index']);
+            Route::get('', [ChoferController::class, 'index']);
             // http://127.0.0.1:8000/api/v1/kalma/staff/allstaff
             Route::get('all', [ChoferController::class, 'all']);
             // http://127.0.0.1:8000/api/v1/kalma/staff/{id}
@@ -65,7 +65,7 @@ Route::group(['prefix' => 'v1'], function () {
         //http://127.0.0.1:8000/api/v1/kalma/categoria/
         Route::group(['prefix' => 'categoria'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/categoria/index
-            Route::get('index', [CategoriaController::class, 'index']);
+            Route::get('', [CategoriaController::class, 'index']);
             // http://127.0.0.1:8000/api/v1/kalma/categoria/{id}
             Route::get('/{id}', [CategoriaController::class, 'show']);
         });
@@ -74,7 +74,7 @@ Route::group(['prefix' => 'v1'], function () {
         //RUTAS VEHICULO
         Route::group(['prefix' => 'car'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/car/all
-            Route::get('all', [VehiculoController::class, 'index']);
+            Route::get('', [VehiculoController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
 
 
@@ -84,7 +84,7 @@ Route::group(['prefix' => 'v1'], function () {
         //RUTAS CLIENTE
         Route::group(['prefix' => 'cliente'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/cliente/index
-            Route::get('index', [ClienteController::class, 'index']);
+            Route::get('', [ClienteController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
             //http://127.0.0.1:8000/api/v1/kalma/cliente/{id}
             Route::get('/{id}', [ClienteController::class, 'show']);
@@ -94,7 +94,7 @@ Route::group(['prefix' => 'v1'], function () {
         //RUTAS COLOR
         Route::group(['prefix' => 'color'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/color/index
-            Route::get('index', [ColorController::class, 'index']);
+            Route::get('', [ColorController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
         });
 
@@ -102,14 +102,14 @@ Route::group(['prefix' => 'v1'], function () {
         //RUTAS ESTADOPEDIDO
         Route::group(['prefix' => 'estado'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/estado/index
-            Route::get('index', [EstadopedidoController::class, 'index']);
+            Route::get('', [EstadopedidoController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
         });
 
         //RUTAS PRODUCTO
         Route::group(['prefix' => 'producto'], function ($router) {
-            // http://127.0.0.1:8000/api/v1/kalma/producto/index
-            Route::get('index', [ProductoController::class, 'index']);
+            // http://127.0.0.1:8000/api/v1/kalma/producto
+            Route::get('', [ProductoController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
 
             // http://127.0.0.1:8000/api/v1/kalma/producto/all
@@ -122,7 +122,7 @@ Route::group(['prefix' => 'v1'], function () {
         //RUTAS ROL
         Route::group(['prefix' => 'rol'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/rol/index
-            Route::get('index', [RolController::class, 'index']);
+            Route::get('', [RolController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
 
         });
@@ -130,7 +130,7 @@ Route::group(['prefix' => 'v1'], function () {
         //RUTAS TALLA
         Route::group(['prefix' => 'talla'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/talla/index
-            Route::get('index', [TallaController::class, 'index']);
+            Route::get('', [TallaController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
 
         });
@@ -138,7 +138,7 @@ Route::group(['prefix' => 'v1'], function () {
         //RUTAS TIPOVEHICULO
         Route::group(['prefix' => 'tipovehiculo'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/tipovehiculo/index
-            Route::get('index', [TipovehiculoController::class, 'index']);
+            Route::get('', [TipovehiculoController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
 
         });

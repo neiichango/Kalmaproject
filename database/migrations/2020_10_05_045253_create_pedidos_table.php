@@ -22,14 +22,14 @@ class CreatePedidosTable extends Migration
             $table->decimal('subtotal', 8, 2);
             $table->decimal('gastoimpuesto', 8, 2);
             $table->decimal('total', 8, 2);
-
+            $table->softDeletes();
+            $table->timestamps();
             $table->integer('provincia_id')->unsigned()->nullable();
             $table->integer('cliente_id')->unsigned();
             $table->integer('chofer_id')->unsigned()->nullable();
             $table->integer('estadopedido_id')->unsigned();
 
             $table->foreign('provincia_id')->references('id')->on('provincias');
-
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->foreign('chofer_id')->references('id')->on('chofers');
             $table->foreign('estadopedido_id')->references('id')->on('estadopedidos');

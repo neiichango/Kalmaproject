@@ -41,34 +41,39 @@ class ColorSeeder extends Seeder
         $color->name = 'Verde';
         $color->code = '5fc9ad';
         $color->save();
-        //1
+        //6
         $color = new \App\Models\Color();
         $color->name = 'Amarillo';
         $color->code = '#dbdb69';
         $color->save();
-        //1
+        //7
         $color = new \App\Models\Color();
         $color->name = 'Naranja';
         $color->code = '#db9e69';
         $color->save();
-        //1
+        //8
         $color = new \App\Models\Color();
         $color->name = 'Blanco';
         $color->code = '#ffffff';
         $color->save();
-        //1
+        //9
         $color = new \App\Models\Color();
         $color->name = 'Negro';
         $color->code = '#000000';
         $color->save();
-
+        //10
         $color = new \App\Models\Color();
         $color->name = 'Cafe';
         $color->code = '#452b0a';
         $color->save();
-
+        //11
         $color = new \App\Models\Color();
         $color->name = 'Gris';
+        $color->code = '#4a4948';
+        $color->save(); 
+        //12
+        $color = new \App\Models\Color();
+        $color->name = 'Estampado';
         $color->code = '#4a4948';
         $color->save();
     }
