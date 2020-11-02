@@ -8,6 +8,7 @@ use App\Http\Controllers\ChoferController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\EstadopedidoController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\TallaController;
@@ -51,7 +52,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         //RUTAS CHOFER
         //http://127.0.0.1:8000/api/v1/kalma/staff/
-        Route::group(['prefix' => 'staff'], function ($router) {
+        Route::group(['prefix' => 'chofer'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/staff/all
             Route::get('', [ChoferController::class, 'index']);
             // http://127.0.0.1:8000/api/v1/kalma/staff/allstaff
@@ -140,6 +141,14 @@ Route::group(['prefix' => 'v1'], function () {
             // http://127.0.0.1:8000/api/v1/kalma/tipovehiculo/index
             Route::get('', [TipovehiculoController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
+
+        });
+
+        //RUTAS PEDIDO
+        Route::group(['prefix' => 'pedido'], function ($router) {
+            // http://127.0.0.1:8000/api/v1/kalma/pedido/index
+            Route::get('all', [PedidoController::class, 'index'])->middleware(['auth:api', 'scopes:Administrador,Vendedor']);
+            //->middleware(['auth:api','scopes:Administrador,Vendedor']);
 
         });
     });

@@ -15,6 +15,15 @@ class PedidoController extends Controller
     public function index()
     {
         //
+        //obtener los productos activos
+        try {
+            $pedido = Pedido::orderBy('created_at', 'asc')->with(['cliente', 'estadopedido', 'chofer', 'provincia', 'detallepedido.producto'])->get();
+            $response = $pedido;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

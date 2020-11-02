@@ -17,7 +17,7 @@ class ProductoSeeder extends Seeder
 
         $producto = new \App\Models\Producto();
         $producto->name = 'Begonia Pants';
-        $producto->description = 'Pantalon flojo de estampado, con tallaje en la cintura y en los talones. Diseñado en corte globo para resaltar la silueta ';
+        $producto->description = 'Pantalon flojo de estampado, con tallaje en la cintura y en los talones.';
         $producto->precio = 2000;
         $producto->nombreImagen = "BegoniaPants.jpg";
         $producto->pathImagen = "http://127.0.0.1:8000/images/BegoniaPants.jpg";
@@ -72,7 +72,7 @@ class ProductoSeeder extends Seeder
 
         $producto = new \App\Models\Producto();
         $producto->name = 'Floral Dress';
-        $producto->description = 'Producto descripcion';
+        $producto->description = 'Vestido corto con colores vivos';
         $producto->precio = 2000;
         $producto->nombreImagen = "vestido1.jpg";
         $producto->pathImagen = "http://127.0.0.1:8000/images/vestido1.jpg";
@@ -85,7 +85,7 @@ class ProductoSeeder extends Seeder
 
         $producto = new \App\Models\Producto();
         $producto->name = 'Maxi Dress';
-        $producto->description = 'Producto descripcion';
+        $producto->description = 'Vestido Largo con estampado bohemio';
         $producto->precio = 2000;
         $producto->nombreImagen = "vestido2.jpg";
         $producto->pathImagen = "http://127.0.0.1:8000/images/vestido2.jpg";
@@ -99,7 +99,7 @@ class ProductoSeeder extends Seeder
 
         $producto = new \App\Models\Producto();
         $producto->name = 'Candy Dress';
-        $producto->description = 'Producto descripcion';
+        $producto->description = 'Vestido Largo con degrade de colores';
         $producto->precio = 2000;
         $producto->nombreImagen = "vestido3.jpg";
         $producto->pathImagen = "http://127.0.0.1:8000/images/vestido3.jpg";
