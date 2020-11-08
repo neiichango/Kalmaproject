@@ -51,14 +51,18 @@ Route::group(['prefix' => 'v1'], function () {
 
 
         //RUTAS CHOFER
-        //http://127.0.0.1:8000/api/v1/kalma/staff/
+        //http://127.0.0.1:8000/api/v1/kalma/chofer/
         Route::group(['prefix' => 'chofer'], function ($router) {
-            // http://127.0.0.1:8000/api/v1/kalma/staff/all
+            // http://127.0.0.1:8000/api/v1/kalma/chofer
             Route::get('', [ChoferController::class, 'index']);
-            // http://127.0.0.1:8000/api/v1/kalma/staff/allstaff
+            // http://127.0.0.1:8000/api/v1/kalma/chofer/all
             Route::get('all', [ChoferController::class, 'all']);
-            // http://127.0.0.1:8000/api/v1/kalma/staff/{id}
+            // http://127.0.0.1:8000/api/v1/kalma/chofer/register
+            Route::post('register', [ChoferController::class, 'store']);
+            // http://127.0.0.1:8000/api/v1/kalma/chofer/{id}
             Route::get('/{id}', [ChoferController::class, 'show']);
+            // http://127.0.0.1:8000/api/v1/kalma/chofer/register
+
         });
 
 
@@ -76,6 +80,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'car'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/car/all
             Route::get('', [VehiculoController::class, 'index']);
+            //->middleware(['auth:api','scopes:Administrador']);
+            Route::get('/{id}', [VehiculoController::class, 'show']);
             //->middleware(['auth:api','scopes:Administrador']);
 
 
@@ -147,7 +153,7 @@ Route::group(['prefix' => 'v1'], function () {
         //RUTAS PEDIDO
         Route::group(['prefix' => 'pedido'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/pedido/index
-            Route::get('all', [PedidoController::class, 'index'])->middleware(['auth:api', 'scopes:Administrador,Vendedor']);
+            Route::get('all', [PedidoController::class, 'index'])->middleware(['auth:api', 'scope:Administrador,Vendedor']);
             //->middleware(['auth:api','scopes:Administrador,Vendedor']);
 
         });

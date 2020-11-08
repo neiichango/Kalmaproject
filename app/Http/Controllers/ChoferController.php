@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chofer;
+use App\Models\Vehiculo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ChoferController extends Controller
 {
@@ -39,15 +41,7 @@ class ChoferController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -57,7 +51,49 @@ class ChoferController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*request de entradas del formulario enviadas, debe establecer las entradas requeridas para crear el chofer */
+
+        //especificar las reglas de validacion para los campos
+
+
+        $validator = Validator::make($request->all(), [
+            'cedula' => 'required|size:9',
+            'nombre' => 'required',
+            'apellido1' => 'required',
+            'apellido2' => 'required',
+            'telefono' => 'required|size:8',
+            'vehiculo_id' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        try {
+            //instancia
+            $chofer = new Chofer();
+            $chofer->cedula = $request->input('cedula');
+            $chofer->nombre = $request->input('nombre');
+            $chofer->apellido1 = $request->input('apellido1');
+            $chofer->apellido2 = $request->input('apellido2');
+            $chofer->telefono = $request->input('telefono');
+            $chofer->vehiculo_id = $request->input('vehiculo_id');
+
+
+            if ($chofer->save()) {
+
+                $response = 'Personal de entrega creado!';
+                return response()->json($response, 201);
+            } else {
+                $response = [
+                    'msg' => 'Error durante la creación'
+                ];
+                return response()->json($response, 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

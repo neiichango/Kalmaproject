@@ -17,7 +17,7 @@ class VehiculoController extends Controller
         //
 
         try {
-            $vehiculos = Vehiculo::orderBy("marca","asc")->with(["tipovehiculo"])->get();;
+            $vehiculos = Vehiculo::orderBy("marca", "asc")->with(["tipovehiculo"])->get();;
             $response = $vehiculos;
 
             return response()->json($response, 200);
@@ -53,9 +53,16 @@ class VehiculoController extends Controller
      * @param  \App\Models\Vehiculo  $vehiculo
      * @return \Illuminate\Http\Response
      */
-    public function show(Vehiculo $vehiculo)
+    public function show($id)
     {
-        //
+
+        try{  
+        $vehiculo = Vehiculo::where('id', $id)->with(['tipovehiculo'])->first();
+        $response = $vehiculo;
+        return response()->json($response, 200);
+         } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
