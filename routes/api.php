@@ -14,6 +14,7 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\TallaController;
 use App\Http\Controllers\TipovehiculoController;
 use App\Http\Controllers\VehiculoController;
+use App\Models\Producto;
 use App\Models\Tipovehiculo;
 
 /*
@@ -55,14 +56,18 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'chofer'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/chofer
             Route::get('', [ChoferController::class, 'index']);
+
+            // http://127.0.0.1:8000/api/v1/kalma/chofer/register
+            Route::post('', [ChoferController::class, 'store']);
+
             // http://127.0.0.1:8000/api/v1/kalma/chofer/all
             Route::get('all', [ChoferController::class, 'all']);
-            // http://127.0.0.1:8000/api/v1/kalma/chofer/register
-            Route::post('register', [ChoferController::class, 'store']);
+
             // http://127.0.0.1:8000/api/v1/kalma/chofer/{id}
             Route::get('/{id}', [ChoferController::class, 'show']);
-            // http://127.0.0.1:8000/api/v1/kalma/chofer/register
 
+            //http://127.0.0.1:8000/api/v1/kalma/chofer/{id}
+            Route::patch('/{id}', [ChoferController::class, 'update']);
         });
 
 
@@ -93,9 +98,16 @@ Route::group(['prefix' => 'v1'], function () {
             // http://127.0.0.1:8000/api/v1/kalma/cliente/index
             Route::get('', [ClienteController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
+
+            // http://127.0.0.1:8000/api/v1/kalma/cliente/register
+            Route::post('', [ClienteController::class, 'store']);
+
             //http://127.0.0.1:8000/api/v1/kalma/cliente/{id}
             Route::get('/{id}', [ClienteController::class, 'show']);
             //->middleware(['auth:api','scopes:Administrador']);
+
+            //http://127.0.0.1:8000/api/v1/kalma/cliente/{id}
+            Route::patch('/{id}', [ClienteController::class, 'update']);
         });
 
         //RUTAS COLOR
@@ -119,11 +131,17 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('', [ProductoController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador']);
 
+            // http://127.0.0.1:8000/api/v1/kalma/producto
+            Route::post('', [ProductoController::class, 'store']);
+
             // http://127.0.0.1:8000/api/v1/kalma/producto/all
             Route::get('all', [ProductoController::class, 'all']);
 
             // http://127.0.0.1:8000/api/v1/kalma/producto/{id}
             Route::get('/{id}', [ProductoController::class, 'show']);
+
+            //http://127.0.0.1:8000/api/v1/kalma/producto/{id}
+            Route::patch('/{id}', [ProductoController::class, 'update']);
         });
 
         //RUTAS ROL
@@ -153,8 +171,16 @@ Route::group(['prefix' => 'v1'], function () {
         //RUTAS PEDIDO
         Route::group(['prefix' => 'pedido'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/pedido/index
-            Route::get('all', [PedidoController::class, 'index'])->middleware(['auth:api', 'scope:Administrador,Vendedor']);
+            Route::get('all', [PedidoController::class, 'index']);
             //->middleware(['auth:api','scopes:Administrador,Vendedor']);
+
+            // http://127.0.0.1:8000/api/v1/kalma/pedido/register
+            Route::post('', [PedidoController::class, 'store']);
+
+            //http://127.0.0.1:8000/api/v1/kalma/pedido/{id}
+            Route::patch('/{id}', [PedidoController::class, 'update']);
+
+
 
         });
     });

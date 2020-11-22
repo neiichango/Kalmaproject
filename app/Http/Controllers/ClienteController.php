@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClienteController extends Controller
 {
@@ -24,15 +25,7 @@ class ClienteController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -43,6 +36,41 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         //
+
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'phone' => 'required|numeric',
+            'email' => 'required|email'
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        try {
+            //instancia
+            $cliente = new Cliente();
+            $cliente->name = $request->input('name');
+            $cliente->phone = $request->input('phone');
+            $cliente->email = $request->input('email');
+
+
+
+            if ($cliente->save()) {
+
+                $response = 'Cliente creado!';
+                return response()->json($response, 201);
+            } else {
+                $response = [
+                    'msg' => 'Error durante la creación'
+                ];
+                return response()->json($response, 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -63,27 +91,41 @@ class ClienteController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cliente  $cliente
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cliente $cliente)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cliente  $cliente
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request,  $id)
     {
         //
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'phone' => 'required|numeric|size:8',
+            'email' => 'required|email'
+
+        ]);
+
+        //Retornar mensajes de validación
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        //instancia
+        $cliente = Cliente::find($id);
+        $cliente->name = $request->input('name');
+        $cliente->phone = $request->input('phone');
+        $cliente->email = $request->input('email');
+
+
+        //Actualizar cliente
+        if ($cliente->update()) {
+
+            $response = 'Videojuego actualizado!';
+            return response()->json($response, 200);
+        }
+        $response = [
+            'msg' => 'Error durante la actualización'
+        ];
+
+        return response()->json($response, 404);
     }
 
     /**

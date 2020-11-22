@@ -58,9 +58,9 @@ class ChoferController extends Controller
 
         $validator = Validator::make($request->all(), [
             'cedula' => 'required|size:9',
-            'nombre' => 'required',
-            'apellido1' => 'required',
-            'apellido2' => 'required',
+            'nombre' => 'required|string',
+            'apellido1' => 'required|string',
+            'apellido2' => 'required|string',
             'telefono' => 'required|size:8',
             'vehiculo_id' => 'required',
 
@@ -133,9 +133,46 @@ class ChoferController extends Controller
      * @param  \App\Models\Chofer  $chofer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Chofer $chofer)
+    public function update(Request $request, $id)
     {
         //
+
+
+        $validator = Validator::make($request->all(), [
+            'cedula' => 'required|size:9',
+            'nombre' => 'required',
+            'apellido1' => 'required|',
+            'apellido2' => 'required|',
+            'telefono' => 'required|size:8',
+            'vehiculo_id' => 'required',
+
+        ]);
+
+        //Retornar mensajes de validación
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        //instancia
+        $chofer = Chofer::find($id);
+        $chofer->cedula = $request->input('cedula');
+        $chofer->nombre = $request->input('nombre');
+        $chofer->apellido1 = $request->input('apellido1');
+        $chofer->apellido2 = $request->input('apellido2');
+        $chofer->telefono = $request->input('telefono');
+        $chofer->vehiculo_id = $request->input('vehiculo_id');
+
+        //Actualizar cliente
+        if ($chofer->update()) {
+
+            $response = 'Videojuego actualizado!';
+            return response()->json($response, 200);
+        }
+        $response = [
+            'msg' => 'Error durante la actualización'
+        ];
+
+        return response()->json($response, 404);
     }
 
     /**
