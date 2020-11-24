@@ -65,8 +65,8 @@ class ProductoController extends Controller
                 'name' => 'required|string',
                 'description' => 'required|string',
                 'precio' => 'required|numeric',
-                'pathImagen' => 'required|string',
-                'nombreImagen' => 'required|string',
+                'pathImagen' => 'string',
+                'nombreImagen' => 'string',
                 'color_id' => 'required|numeric',
                 'categoria_id' => 'required|numeric'
             ]
@@ -80,8 +80,10 @@ class ProductoController extends Controller
             $producto->name = $request->input('name');
             $producto->description = $request->input('description');
             $producto->precio = $request->input('precio');
-            $producto->pathImagen = $request->input('pathImagen');
-            $producto->nombreImagen = $request->input('nombreImagen');
+            /* $producto->pathImagen = $request->input('pathImagen');
+            $producto->nombreImagen = $request->input('nombreImagen');*/
+            $producto->pathImagen;
+            $producto->nombreImagen;
             $producto->color_id = $request->input('color_id');
             $producto->categoria_id = $request->input('categoria_id');
 
@@ -155,13 +157,13 @@ class ProductoController extends Controller
 
         //BASICO
         $validator = Validator::make($request->all(), [
-                'name' => 'required|string',
-                'description' => 'required|string',
-                'precio' => 'required|numeric',
-                'pathImagen' => 'required|string',
-                'nombreImagen' => 'required|string',
-                'color_id' => 'required|numeric',
-                'categoria_id' => 'required|numeric'
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'precio' => 'required|numeric',
+            'pathImagen' => 'string',
+            'nombreImagen' => 'string',
+            'color_id' => 'required|numeric',
+            'categoria_id' => 'required|numeric'
 
         ]);
         //Retornar mensajes de validación

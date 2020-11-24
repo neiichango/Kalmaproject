@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pedido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PedidoController extends Controller
 {
@@ -35,19 +37,11 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
-        /* Request entradas del formulario enviadas,
-            debe establecer las entradas requeridas para crear el videojuego
-         */
-        //Especificar las reglas de validación para los campos del videojuego
-        //https://laravel.com/docs/8.x/validation#available-validation-rules
         $validator = Validator::make(
             $request->all(),
             [
-
-                'fechaFactura' => 'date',
-                'express' => 'required|boolean',
+                'fechaFactura' => '',
+                'express' => 'boolean',
                 'direccion' => 'string',
                 'gastoenvio' => 'required|numeric',
                 'subtotal' => 'required|numeric',
@@ -55,65 +49,59 @@ class PedidoController extends Controller
                 'total' => 'required|numeric',
                 'provincia_id' => 'numeric',
                 'cliente_id' => 'required|numeric',
+                'estadopedido_id' => 'required|numeric',
                 'chofer_id' => 'numeric',
-                'estadopedido_id' => 'required|numeric'
+
+
 
             ]
         );
         if ($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
+
+        DB::beginTransaction();
+
         try {
-            //Instancia
+            //Instancia orden
+
+            //Fecha actual o dada por el usuario depende de la aplicación
             $pedido = new Pedido();
-            $pedido->fechaFactura = $request->input('nombre');
-            $pedido->express = $request->input('descripcion');
-            $pedido->direccion = $request->input('precio');
-            $pedido->gastoenvio = $request->input('precio');
-            $pedido->subtotal = $request->input('precio');
-            $pedido->gastoimpuesto = $request->input('precio');
-            $pedido->total = $request->input('precio');
-            $pedido->provincia_id = $request->input('precio');
-            $pedido->cliente_id = $request->input('precio');
-            $pedido->estadopedido_id = $request->input('precio');
-
-
-
-
-            //Guardar el videojuego en la BD
-            if ($pedido->save()) {
-                /*
-            Asociarle varias generos
-            Relación de muchos a muchos
-            https://laravel.com/docs/8.x/eloquent-relationships#inserting-and-updating-related-models
-            */
-
-                /*
-                //Solo es necesario con la imagen
-                $generos = $request->input('genero_id');
-
-                //Solo es necesario con la imagen
-                if (!is_array($request->input('genero_id'))) {
-                    //Formato array relación muchos a muchos
-                    $generos =
-                        explode(',', $request->input('genero_id'));
-                }
-                if (!is_null($request->input('genero_id'))) {
-                    //Agregar generos
-                    $vj->generos()->attach($generos);
-                }
-                */
-
-                $response = 'Pedido  creado!';
-                return response()->json($response, 201);
-            } else {
-                $response = [
-                    'msg' => 'Error durante la creación'
-                ];
-                return response()->json($response, 404);
+            $pedido->fechaFactura = $request->input('fechaFactura');
+            $pedido->express = $request->input('express');
+            //$pedido->express = (bool)json_decode(strtolower($request->input('express')));
+            $pedido->direccion = $request->input('direccion');
+            $pedido->gastoenvio = $request->input('gastoenvio');
+            $pedido->subtotal = $request->input('subtotal');
+            $pedido->gastoimpuesto = $request->input('gastoimpuesto');
+            $pedido->total = $request->input('total');
+            $pedido->provincia_id = $request->input('provincia_id');
+            $pedido->cliente_id = $request->input('cliente_id');
+            $pedido->estadopedido_id = $request->input('estadopedido_id');
+            $pedido->chofer_id = $request->input('chofer_id');
+            //Guardar encabezado
+            $pedido->save();
+            //Instancias Detalle orden
+            //La siguiente variable debe contener todos los elementos necesarios para registrar el detalle de la orden
+            $detalles = $request->input('detalles');
+            // $detalles = json_decode($array);
+            foreach ($detalles as $item) {
+                $pedido->detallepedido()->attach($item['idItem'], [
+                    'cantidad' => $item['cantidad'],
+                    'pedido_id' => $item['pedido_id'],
+                    'subtotal' => $item['subtotal'],
+                    'producto_id' => $item['producto_id']
+                ]);
             }
+            DB::commit();
+            $response = 'Orden creado!';
+            return response()->json($response, 201);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 422);
+            DB::rollback();
+            return response()->json(
+                $e->getMessage(),
+                422
+            );
         }
     }
 
@@ -123,9 +111,16 @@ class PedidoController extends Controller
      * @param  \App\Models\Pedido  $pedido
      * @return \Illuminate\Http\Response
      */
-    public function show(Pedido $pedido)
+    public function show($id)
     {
-        //
+        try {
+            //Obtener un producto
+            $pedido = Pedido::where('id', $id)->with(['cliente', 'estadopedido', 'chofer.vehiculo', 'provincia', 'detallepedido.producto'])->first();
+            $response = $pedido;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -146,9 +141,60 @@ class PedidoController extends Controller
      * @param  \App\Models\Pedido  $pedido
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pedido $pedido)
+    public function update(Request $request,  $id)
     {
-        //
+        /*
+        //BASICO
+        $validator = Validator::make($request->all(), [
+
+            'express' => 'required',
+            'direccion' => 'string',
+            'gastoenvio' => 'required|numeric',
+            'subtotal' => 'required|numeric',
+            'gastoimpuesto' => 'required|numeric',
+            'total' => 'required|numeric',
+            'provincia_id' => 'numeric',
+            'cliente_id' => 'required|numeric',
+            'chofer_id' => 'numeric',
+            'estadopedido_id' => 'required|numeric'
+
+        ]);
+        //Retornar mensajes de validación
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        //Instancia
+        $pedido = Pedido::find($id);
+        $pedido->fechaFactura = $request->input('fechaFactura');
+        $pedido->express = (bool)json_decode(strtolower($request->input('express')));
+        $pedido->direccion = $request->input('direccion');
+        $pedido->gastoenvio = $request->input('gastoenvio');
+        $pedido->subtotal = $request->input('subtotal');
+        $pedido->gastoimpuesto = $request->input('gastoimpuesto');
+        $pedido->total = $request->input('total');
+        $pedido->provincia_id = $request->input('provincia_id');
+        $pedido->cliente_id = $request->input('cliente_id');
+        $pedido->estadopedido_id = $request->input('estadopedido_id');
+        $pedido->chofer_id = $request->input('chofer_id');
+
+
+
+        //BASICO UPDATE IF
+
+        //Actualizar videojuego
+        if ($pedido->update()) {
+            //Sincronice generos
+            //Array de generos
+
+            $response = 'Producto actualizado!';
+            return response()->json($response, 200);
+        }
+        $response = [
+            'msg' => 'Error durante la actualización'
+        ];
+
+        return response()->json($response, 404);*/
     }
 
     /**

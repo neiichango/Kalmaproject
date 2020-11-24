@@ -36,6 +36,9 @@ class TallaSeeder extends Seeder
         $talla->description = 'Talla grande';
         $talla->save();
 
-
+        $talla = new \App\Models\Talla();
+        $talla->name = 'Unitalla';
+        $talla->description = 'Talla o tamaño unico';
+        $talla->save();
     }
 }
