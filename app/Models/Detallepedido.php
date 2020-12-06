@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Detallepedido extends Model
 {
     use HasFactory;
-
+/*
     public function pedido()
     {
         return $this->belongsTo('App\Models\pedido');
@@ -20,6 +20,7 @@ class Detallepedido extends Model
     {
         return $this->belongsTo('App\Models\Producto');
         //relacion verificada
-        
-    }
+
+    }*/
+
 }

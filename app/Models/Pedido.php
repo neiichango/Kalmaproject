@@ -21,12 +21,19 @@ class Pedido extends Model
         //verificada
     }
 
-
+/*
     public function detallepedido()
     {
-        return $this->hasMany('App\Models\Detallepedido');
+        return $this->hasMany('App\Models\Detallepedido',);
         //relacion verificada
     }
+*/
+    public function producto()
+    {
+        return $this->belongsToMany('App\Models\producto', 'detallepedidos')->withPivot('cantidad', 'subtotal')->withTimestamps();;
+
+    }
+
 
     public function chofer()
     {

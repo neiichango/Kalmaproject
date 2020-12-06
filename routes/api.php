@@ -10,6 +10,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\EstadopedidoController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\TallaController;
 use App\Http\Controllers\TipovehiculoController;
@@ -168,6 +169,14 @@ Route::group(['prefix' => 'v1'], function () {
 
         });
 
+        //RUTAS TIPOVEHICULO
+        Route::group(['prefix' => 'provincia'], function ($router) {
+            // http://127.0.0.1:8000/api/v1/kalma/provincia/index
+            Route::get('', [ProvinciaController::class, 'index']);
+            //
+
+        });
+
         //RUTAS PEDIDO
         Route::group(['prefix' => 'pedido'], function ($router) {
             // http://127.0.0.1:8000/api/v1/kalma/pedido/index
@@ -182,6 +191,9 @@ Route::group(['prefix' => 'v1'], function () {
 
             // http://127.0.0.1:8000/api/v1/kalma/pedido/{id}
             Route::get('/{id}', [PedidoController::class, 'show']);
+
+            // http://127.0.0.1:8000/api/v1/kalma/pedido/status/{id}
+           Route::get('status/{id}', [PedidoController::class, 'showbyStatus']);
         });
     });
 });

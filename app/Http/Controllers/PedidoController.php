@@ -17,9 +17,9 @@ class PedidoController extends Controller
     public function index()
     {
         //
-        //obtener los productos activos
+        //obtener los pedidos
         try {
-            $pedido = Pedido::orderBy('created_at', 'asc')->with(['cliente', 'estadopedido', 'chofer', 'provincia', 'detallepedido.producto'])->get();
+            $pedido = Pedido::orderBy('created_at', 'asc')->with(['cliente', 'estadopedido', 'chofer', 'provincia', 'producto'])->get();
             $response = $pedido;
 
             return response()->json($response, 200);
@@ -67,6 +67,7 @@ class PedidoController extends Controller
 
             //Fecha actual o dada por el usuario depende de la aplicación
             $pedido = new Pedido();
+            $pedidoguardado = new Pedido();
             $pedido->fechaFactura = $request->input('fechaFactura');
             $pedido->express = $request->input('express');
             //$pedido->express = (bool)json_decode(strtolower($request->input('express')));
@@ -81,17 +82,21 @@ class PedidoController extends Controller
             $pedido->chofer_id = $request->input('chofer_id');
             //Guardar encabezado
             $pedido->save();
+            $pedidoguardado = $pedido->save();
             //Instancias Detalle orden
             //La siguiente variable debe contener todos los elementos necesarios para registrar el detalle de la orden
-            $detalles = $request->input('detalles');
+            $detalles = $request->input('detalles.detalles');
             // $detalles = json_decode($array);
             foreach ($detalles as $item) {
-                $pedido->detallepedido()->attach($item['idItem'], [
-                    'cantidad' => $item['cantidad'],
-                    'pedido_id' => $item['pedido_id'],
-                    'subtotal' => $item['subtotal'],
-                    'producto_id' => $item['producto_id']
-                ]);
+                $pedido->producto()->attach(
+                    $item['productoId'],
+                    [
+                        'cantidad' => $item['cantidad'],
+                        // 'pedido_id' => $item['pedido_id'],
+                        'subtotal' => $item['subtotal']
+
+                    ]
+                );
             }
             DB::commit();
             $response = 'Orden creado!';
@@ -115,7 +120,20 @@ class PedidoController extends Controller
     {
         try {
             //Obtener un producto
-            $pedido = Pedido::where('id', $id)->with(['cliente', 'estadopedido', 'chofer.vehiculo', 'provincia', 'detallepedido.producto'])->first();
+            $pedido = Pedido::where('id', $id)->with(['cliente', 'estadopedido', 'chofer.vehiculo', 'provincia', 'producto'])->first();
+            $response = $pedido;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
+
+    public function showbyStatus($estado)
+    {
+        try {
+            //Obtener un producto
+            $pedido = Pedido::where('estadopedido_id', $estado)->with(['cliente', 'estadopedido', 'chofer.vehiculo', 'provincia', 'producto'])->get();
             $response = $pedido;
             return response()->json($response, 200);
         } catch (\Exception $e) {
@@ -143,19 +161,19 @@ class PedidoController extends Controller
      */
     public function update(Request $request,  $id)
     {
-        /*
+
         //BASICO
         $validator = Validator::make($request->all(), [
 
             'express' => 'required',
-            'direccion' => 'string',
+            'direccion' => '',
             'gastoenvio' => 'required|numeric',
             'subtotal' => 'required|numeric',
             'gastoimpuesto' => 'required|numeric',
             'total' => 'required|numeric',
-            'provincia_id' => 'numeric',
+            'provincia_id' => '',
             'cliente_id' => 'required|numeric',
-            'chofer_id' => 'numeric',
+            'chofer_id' => '',
             'estadopedido_id' => 'required|numeric'
 
         ]);
@@ -194,7 +212,7 @@ class PedidoController extends Controller
             'msg' => 'Error durante la actualización'
         ];
 
-        return response()->json($response, 404);*/
+        return response()->json($response, 404);
     }
 
     /**

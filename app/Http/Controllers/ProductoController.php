@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
+
+use Illuminate\Support\Facades\Auth;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -18,7 +22,7 @@ class ProductoController extends Controller
     {
         //obtener los productos activos
         try {
-            $producto = Producto::wherenull("deleted_at")->with(['color', 'categoria', 'talla', 'detallepedido.pedido'])->get();
+            $producto = Producto::wherenull("deleted_at")->with(['color', 'categoria', 'talla', 'pedido'])->get();
             $response = $producto;
 
             return response()->json($response, 200);
@@ -31,7 +35,7 @@ class ProductoController extends Controller
     {
 
         try {
-            $producto = Producto::orderBy("name", "asc")->with(['color', 'categoria', 'talla', 'detallepedido.pedido'])->get();
+            $producto = Producto::orderBy("name", "asc")->with(['color', 'categoria', 'talla', 'pedido'])->get();
             $response = $producto;
 
             return response()->json($response, 200);
@@ -142,7 +146,7 @@ class ProductoController extends Controller
         //
         try {
             //Obtener un producto
-            $producto = Producto::where('id', $id)->with(['color', 'categoria', 'talla', 'detallepedido.pedido'])->first();
+            $producto = Producto::where('id', $id)->with(['color', 'categoria', 'talla', 'pedido'])->first();
             $response = $producto;
             return response()->json($response, 200);
         } catch (\Exception $e) {

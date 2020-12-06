@@ -14,7 +14,14 @@ class ProvinciaController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $talla = Provincia::orderBy('id', 'asc')->get();
+            $response = $talla;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

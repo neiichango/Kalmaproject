@@ -27,11 +27,19 @@ class Producto extends Model
         return $this->belongsTo('App\Models\Color');
         //relacion verificada
     }
+    public function pedido()
+    {
+        return $this->belongsToMany('App\Models\pedido', 'detallepedidos')->withPivot('cantidad', 'subtotal')->withTimestamps();
+    }
 
+
+
+    /*
     public function detallepedido()
     {
         return $this->hasMany('App\Models\DetallePedido');
         //relacion verificada
-        
-    }
+
+    }*/
+    
 }
